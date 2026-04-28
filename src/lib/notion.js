@@ -2,8 +2,8 @@ import { Client } from '@notionhq/client';
 
 const notion = new Client({ auth: import.meta.env.NOTION_TOKEN });
 
-const PRODUCT_DB_ID  = import.meta.env.NOTION_PRODUCT_DB_ID;
-const BRAND_DB_ID    = import.meta.env.NOTION_BRAND_DB_ID;
+const PRODUCT_DB_ID  = import.meta.env.NOTION_PRODUCT_DB_ID ?? import.meta.env.PRODUCT_DB_ID;
+const BRAND_DB_ID    = import.meta.env.NOTION_BRAND_DB_ID   ?? import.meta.env.BRAND_DB_ID;
 
 /* ── 通用：取得 rich_text 純文字 ── */
 function richText(prop) {

@@ -1,0 +1,12 @@
+{
+  "name": "xiaomu-ren-astro",
+  "build": {
+    "command": "npm run build"
+  },
+  "output": {
+    "dir": "dist"
+  },
+  "env": {
+    "NODE_VERSION": "22"
+  }
+}

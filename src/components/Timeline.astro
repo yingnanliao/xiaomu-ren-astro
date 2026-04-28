@@ -1,0 +1,73 @@
+---
+import { getBrandTimeline } from '../lib/notion.js';
+const events = await getBrandTimeline();
+
+const fallback = [
+  { id:'t1', year:2012, date:'2012-03', title:'小牧人牧場創立', description:'創辦人在霧峰山區接手家族羊場，以有機農業理念全新出發。' },
+  { id:'t2', year:2015, date:'2015-06', title:'取得有機農業認證', description:'通過嚴格的第三方認證，建立無農藥、無荷爾蒙飼養規範。' },
+  { id:'t3', year:2018, date:'2018-09', title:'冷鏈宅配上線',    description:'建立台中市全區冷鏈配送體系，讓鮮奶直送每個家庭。' },
+  { id:'t4', year:2021, date:'2021-04', title:'進駐光復新村',    description:'通過行政院青年署青創計畫，落腳霧峰光復新村開設門市。' },
+  { id:'t5', year:2023, date:'2023-10', title:'進軍金典第六市場', description:'進駐台中頂級通路，讓更多消費者認識在地羊奶品質。' },
+  { id:'t6', year:2025, date:'2025-01', title:'摘星計畫續約前行', description:'再次通過摘星計畫，品牌持續深耕，感謝每一個支持的家庭。' },
+];
+const items = events.length > 0 ? events : fallback;
+---
+
+<section id="timeline" style="background:var(--color-bg); border-top:1px solid var(--color-border);">
+  <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12 py-16 sm:py-20">
+
+    <!-- 標題 -->
+    <div class="mb-10 sm:mb-14 reveal">
+      <span class="tag">Brand Timeline</span>
+      <h2 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-black" style="color:var(--color-ink);">
+        品牌大事記
+      </h2>
+    </div>
+
+    <!-- 手機：縱向堆疊時間軸；桌面：橫向 grid -->
+    <div>
+
+      <!-- 桌面橫向（lg+） -->
+      <div class="hidden lg:block overflow-x-auto">
+        <div class="grid grid-cols-6 gap-0 min-w-[700px]"
+          style="border-top:2px solid var(--color-border);">
+          {items.map((ev, i) => (
+            <div class="reveal group pt-7 pr-6"
+              style={`transition-delay:${i*.07}s`}>
+              <div class="-mt-[9px] flex items-center gap-2 mb-4">
+                <div class="w-3 h-3 rounded-full flex-shrink-0"
+                  style="background:var(--color-gold); border:2px solid var(--color-bg);
+                         box-shadow:0 0 0 1px var(--color-gold); margin-top:0px;"></div>
+                <span class="text-xs font-black tracking-wider" style="color:var(--color-sage);">{ev.year}</span>
+              </div>
+              <h3 class="text-sm font-black mb-1.5 leading-snug" style="color:var(--color-ink);">{ev.title}</h3>
+              <p class="text-xs leading-relaxed" style="color:var(--color-ink-muted);">{ev.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- 手機縱向時間軸（< lg） -->
+      <div class="lg:hidden relative pl-6">
+        <!-- 垂直線 -->
+        <div class="absolute left-[7px] top-2 bottom-2 w-px"
+          style="background:linear-gradient(to bottom, var(--color-gold), var(--color-border));"></div>
+
+        <div class="space-y-8">
+          {items.map((ev, i) => (
+            <div class="reveal relative" style={`transition-delay:${i*.07}s`}>
+              <!-- 圓點 -->
+              <div class="absolute -left-6 top-[3px] w-3 h-3 rounded-full flex-shrink-0"
+                style="background:var(--color-gold); border:2px solid var(--color-bg);
+                       box-shadow:0 0 0 1px var(--color-gold);"></div>
+              <span class="text-xs font-black tracking-wider block mb-1"
+                style="color:var(--color-sage);">{ev.year}</span>
+              <h3 class="text-sm font-black mb-1 leading-snug" style="color:var(--color-ink);">{ev.title}</h3>
+              <p class="text-xs leading-relaxed" style="color:var(--color-ink-muted);">{ev.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

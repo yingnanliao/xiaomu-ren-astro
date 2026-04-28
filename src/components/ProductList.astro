@@ -1,0 +1,192 @@
+---
+import { getProducts } from '../lib/notion.js';
+
+const products = await getProducts();
+
+const fallback = [
+  {
+    id: 'p1',
+    name: '每日鮮純羊奶',
+    description: '清晨採集，當日殺菌出貨。濃郁奶香、低羶味，原味呈現羊奶最真實的甘甜。',
+    category: '鮮奶',
+    price: null,
+    image: null,
+    tag: '人氣首選',
+  },
+  {
+    id: 'p2',
+    name: '活菌羊奶優格',
+    description: '以百億活菌慢速發酵，口感絲滑綿密，無添加人工香料，純粹的益生菌來源。',
+    category: '發酵製品',
+    price: null,
+    image: null,
+    tag: '熱銷新品',
+  },
+  {
+    id: 'p3',
+    name: '手工羊乳起司',
+    description: '傳統法式工藝結合台灣風土，每塊均由職人手工熟成，層次豐富令人回味。',
+    category: '乳酪',
+    price: null,
+    image: null,
+    tag: null,
+  },
+  {
+    id: 'p4',
+    name: '羊奶週週配',
+    description: '訂閱制定期配送，每週固定送到府，省心又新鮮，長期飲用享折扣優惠。',
+    category: '訂閱方案',
+    price: null,
+    image: null,
+    tag: '最划算',
+  },
+];
+
+const items = products.length > 0
+  ? products.map((p: any, i: number) => ({ ...p, tag: null }))
+  : fallback;
+---
+
+<section
+  id="products"
+  class="py-28 overflow-hidden"
+  style="background: var(--color-off-white);"
+>
+  <div class="max-w-6xl mx-auto px-6 lg:px-10">
+
+    <!-- 標題 -->
+    <div class="reveal flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
+      <div>
+        <span class="label">Our Products</span>
+        <h2 class="mt-3 text-4xl md:text-5xl font-black" style="color: var(--color-forest);">
+          精選產品
+        </h2>
+        <div class="section-divider mt-5"></div>
+      </div>
+      <p class="max-w-xs text-sm leading-loose" style="color: var(--color-gray);">
+        每項產品均使用自家牧場鮮奶製作，<br/>原料透明、製程公開。
+      </p>
+    </div>
+
+    <!-- 第一行：1大+1小 -->
+    <div class="grid md:grid-cols-3 gap-6 mb-6">
+
+      <!-- 大卡（佔2欄） -->
+      <article
+        class="reveal-left md:col-span-2 rounded-3xl overflow-hidden relative group cursor-pointer"
+        style="background: var(--color-forest); min-height: 320px;"
+      >
+        {items[0]?.tag && (
+          <div class="absolute top-5 left-5 z-20 px-3 py-1 rounded-full text-xs font-bold"
+            style="background: var(--color-gold); color: var(--color-forest);">
+            {items[0].tag}
+          </div>
+        )}
+        <!-- 裝飾 -->
+        <div class="absolute top-0 right-0 w-64 h-64 opacity-10 rounded-full"
+          style="background: radial-gradient(circle, var(--color-gold) 0%, transparent 70%); transform: translate(30%, -30%);"></div>
+
+        <div class="relative z-10 p-10 flex flex-col md:flex-row items-center gap-8 h-full">
+          <!-- 圖 -->
+          <div class="w-40 h-40 md:w-52 md:h-52 rounded-2xl flex-shrink-0 flex items-center justify-center overflow-hidden"
+            style="background: rgba(255,255,255,0.07);">
+            {items[0]?.image ? (
+              <img src={items[0].image} alt={items[0].name}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+            ) : (
+              <img src="/logo.png" alt={items[0]?.name} class="w-3/4 opacity-50"/>
+            )}
+          </div>
+          <!-- 文字 -->
+          <div class="flex-1">
+            <span class="text-xs font-semibold tracking-widest" style="color: var(--color-gold);">
+              {items[0]?.category}
+            </span>
+            <h3 class="text-2xl md:text-3xl font-black mt-2 mb-4" style="color: var(--color-white);">
+              {items[0]?.name}
+            </h3>
+            <p class="text-sm leading-loose" style="color: rgba(255,255,255,0.6);">
+              {items[0]?.description}
+            </p>
+            {items[0]?.price && (
+              <p class="mt-4 text-lg font-bold" style="color: var(--color-gold);">
+                NT$ {items[0].price.toLocaleString('zh-TW')}
+              </p>
+            )}
+          </div>
+        </div>
+      </article>
+
+      <!-- 小卡 -->
+      <article
+        class="reveal-right rounded-3xl overflow-hidden relative group cursor-pointer"
+        style="background: var(--color-pale);"
+      >
+        {items[1]?.tag && (
+          <div class="absolute top-5 left-5 z-20 px-3 py-1 rounded-full text-xs font-bold"
+            style="background: var(--color-forest); color: var(--color-white);">
+            {items[1].tag}
+          </div>
+        )}
+        <div class="p-8 flex flex-col h-full">
+          <div class="w-24 h-24 rounded-2xl flex items-center justify-center overflow-hidden mb-6"
+            style="background: var(--color-white);">
+            {items[1]?.image ? (
+              <img src={items[1].image} alt={items[1]?.name}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+            ) : (
+              <img src="/logo.png" alt={items[1]?.name} class="w-3/4"/>
+            )}
+          </div>
+          <span class="text-xs font-semibold tracking-widest" style="color: var(--color-forest-light);">
+            {items[1]?.category}
+          </span>
+          <h3 class="text-xl font-black mt-2 mb-3" style="color: var(--color-forest);">
+            {items[1]?.name}
+          </h3>
+          <p class="text-sm leading-loose flex-1" style="color: var(--color-gray);">
+            {items[1]?.description}
+          </p>
+        </div>
+      </article>
+    </div>
+
+    <!-- 第二行：小卡均分 -->
+    <div class="grid sm:grid-cols-2 gap-6">
+      {items.slice(2).map((product, i) => (
+        <article
+          class="reveal rounded-3xl overflow-hidden relative group cursor-pointer flex gap-6 p-8"
+          style={`background: var(--color-white); border: 1.5px solid var(--color-pale); transition-delay: ${i * 0.12}s`}
+        >
+          {(product as any).tag && (
+            <div class="absolute top-5 right-5 px-3 py-1 rounded-full text-xs font-bold"
+              style="background: var(--color-gold); color: var(--color-forest);">
+              {(product as any).tag}
+            </div>
+          )}
+          <div class="w-20 h-20 rounded-2xl flex-shrink-0 flex items-center justify-center overflow-hidden"
+            style="background: var(--color-pale);">
+            {product.image ? (
+              <img src={product.image} alt={product.name}
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"/>
+            ) : (
+              <img src="/logo.png" alt={product.name} class="w-3/4"/>
+            )}
+          </div>
+          <div class="flex-1">
+            <span class="text-xs font-semibold tracking-widest" style="color: var(--color-forest-light);">
+              {product.category}
+            </span>
+            <h3 class="text-lg font-black mt-1 mb-2" style="color: var(--color-forest);">
+              {product.name}
+            </h3>
+            <p class="text-xs leading-loose" style="color: var(--color-gray);">
+              {product.description}
+            </p>
+          </div>
+        </article>
+      ))}
+    </div>
+
+  </div>
+</section>

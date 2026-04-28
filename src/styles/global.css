@@ -1,0 +1,166 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:ital,wght@0,400;0,700;0,900;1,400&display=swap");
+@import "tailwindcss";
+
+@theme {
+  /* ── 色盤：北歐自然系 ── */
+  --color-bg:          #F7F4EE;   /* 羊皮紙白 */
+  --color-bg-2:        #EDE8DC;   /* 暖米色 */
+  --color-bg-dark:     #1A1C18;   /* 深墨綠黑 */
+  --color-bg-mid:      #2E3529;   /* 深橄欖 */
+
+  --color-ink:         #1A1C18;   /* 主文字 */
+  --color-ink-muted:   #5C5F55;   /* 輔助文字 */
+  --color-border:      #D8D3C8;   /* 邊線 */
+
+  --color-sage:        #6B8C5A;   /* 鼠尾草綠 */
+  --color-sage-light:  #A8C195;   /* 淡綠 */
+  --color-sage-pale:   #E2EDD9;   /* 最淡綠 */
+
+  --color-gold:        #E8C44A;   /* Logo 金黃 */
+  --color-gold-muted:  #C9A832;
+  --color-terracotta:  #B85C3A;   /* 陶土橘（點綴） */
+
+  /* ── 字體 ── */
+  --font-sans:   "Noto Sans TC",   "PingFang TC", "Microsoft JhengHei", sans-serif;
+  --font-serif:  "Noto Serif TC",  "PMingLiU",    serif;
+}
+
+/* ── Base ── */
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;      /* 防止手機橫向溢出 */
+  }
+  h1,h2,h3,h4 {
+    font-family: var(--font-serif);
+    line-height: 1.15;
+  }
+  /* 手機文字選取顏色 */
+  ::selection { background: var(--color-gold); color: var(--color-ink); }
+  /* 細橫線裝飾 */
+  hr.thin {
+    border: none;
+    border-top: 1px solid var(--color-border);
+  }
+}
+
+/* ── 動畫 ── */
+@keyframes fadeUp   { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
+@keyframes fadeIn   { from{opacity:0} to{opacity:1} }
+@keyframes slideR   { from{opacity:0;transform:translateX(-28px)} to{opacity:1;transform:none} }
+@keyframes slideL   { from{opacity:0;transform:translateX(28px)}  to{opacity:1;transform:none} }
+@keyframes marquee  { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+.reveal       { opacity:0; transform:translateY(28px);
+                transition:opacity .75s cubic-bezier(.22,1,.36,1), transform .75s cubic-bezier(.22,1,.36,1); }
+.reveal-left  { opacity:0; transform:translateX(-28px);
+                transition:opacity .75s cubic-bezier(.22,1,.36,1), transform .75s cubic-bezier(.22,1,.36,1); }
+.reveal-right { opacity:0; transform:translateX(28px);
+                transition:opacity .75s cubic-bezier(.22,1,.36,1), transform .75s cubic-bezier(.22,1,.36,1); }
+.reveal.visible, .reveal-left.visible, .reveal-right.visible {
+  opacity:1; transform:none;
+}
+
+/* ── Marquee ── */
+.marquee-wrap { overflow:hidden; }
+.marquee-track {
+  display:flex; width:max-content;
+  animation: marquee 28s linear infinite;
+}
+.marquee-track:hover { animation-play-state:paused; }
+
+/* ── Buttons ── */
+.btn-dark {
+  display:inline-flex; align-items:center; gap:10px;
+  padding:14px 32px;
+  background:var(--color-ink);
+  color:var(--color-bg);
+  font-family:var(--font-sans); font-weight:700; font-size:.82rem;
+  letter-spacing:.12em; text-transform:uppercase;
+  border:1.5px solid var(--color-ink);
+  transition:background .2s, color .2s, transform .2s;
+}
+.btn-dark:hover {
+  background:var(--color-bg-mid);
+  transform:translateY(-2px);
+}
+.btn-outline-dark {
+  display:inline-flex; align-items:center; gap:10px;
+  padding:13px 32px;
+  background:transparent;
+  color:var(--color-ink);
+  font-family:var(--font-sans); font-weight:700; font-size:.82rem;
+  letter-spacing:.12em; text-transform:uppercase;
+  border:1.5px solid var(--color-ink);
+  transition:background .2s, color .2s, transform .2s;
+}
+.btn-outline-dark:hover {
+  background:var(--color-ink);
+  color:var(--color-bg);
+  transform:translateY(-2px);
+}
+.btn-gold {
+  display:inline-flex; align-items:center; gap:10px;
+  padding:14px 32px;
+  background:var(--color-gold);
+  color:var(--color-ink);
+  font-family:var(--font-sans); font-weight:700; font-size:.82rem;
+  letter-spacing:.12em; text-transform:uppercase;
+  border:1.5px solid var(--color-gold);
+  transition:background .2s, transform .2s;
+}
+.btn-gold:hover { background:var(--color-gold-muted); transform:translateY(-2px); }
+
+/* ── Tag ── */
+.tag {
+  display:inline-block;
+  font-size:.68rem; font-weight:700;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:var(--color-sage);
+}
+
+/* ── 大數字裝飾 ── */
+.display-num {
+  font-family:var(--font-serif);
+  font-size:clamp(5rem, 12vw, 9rem);
+  font-weight:900; line-height:1;
+  color:var(--color-border);
+  user-select:none;
+}
+
+/* ── FAQ Accordion ── */
+details.faq-item {
+  border-bottom: 1px solid var(--color-border);
+}
+details.faq-item summary {
+  list-style:none; cursor:pointer;
+  padding: 22px 0;
+  display:flex; justify-content:space-between; align-items:center;
+  gap:16px;
+  font-family:var(--font-serif); font-size:1rem; font-weight:700;
+  color:var(--color-ink);
+  user-select:none;
+  transition:color .2s;
+}
+details.faq-item summary:hover { color:var(--color-sage); }
+details.faq-item summary::-webkit-details-marker { display:none; }
+details.faq-item summary .faq-icon {
+  flex-shrink:0; width:22px; height:22px;
+  border:1.5px solid var(--color-border); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  transition:background .2s, border-color .2s;
+  font-size:14px; line-height:1;
+}
+details.faq-item[open] summary .faq-icon {
+  background:var(--color-ink); border-color:var(--color-ink); color:var(--color-bg);
+}
+details.faq-item .faq-body {
+  padding-bottom:22px;
+  font-size:.9rem; line-height:1.9;
+  color:var(--color-ink-muted);
+}

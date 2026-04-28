@@ -1,0 +1,66 @@
+---
+const links = [
+  { label: '關於我們', href: '#about' },
+  { label: '產品價目', href: '#menu' },
+  { label: '近期活動', href: '#events' },
+  { label: '羊奶小學堂', href: '#faq' },
+  { label: '品牌故事', href: '#timeline' },
+];
+---
+
+<header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-400"
+  style="background:var(--color-bg);">
+  <div style="border-bottom:1px solid var(--color-border);">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 h-16 flex items-center justify-between">
+
+      <a href="/" class="flex items-center gap-2">
+        <img src="/logo.png" alt="小牧人羊奶" class="h-9 w-auto" />
+      </a>
+
+      <!-- 桌面 -->
+      <nav class="hidden lg:flex items-center gap-6">
+        {links.map(l => (
+          <a href={l.href} class="text-xs font-semibold tracking-widest uppercase transition-colors duration-200"
+            style="color:var(--color-ink-muted);"
+            onmouseover="this.style.color='var(--color-ink)'"
+            onmouseout="this.style.color='var(--color-ink-muted)'"
+          >{l.label}</a>
+        ))}
+      </nav>
+
+      <div class="hidden lg:flex items-center gap-3">
+        <button data-line-modal class="btn-gold" style="padding:9px 22px; font-size:.72rem;">
+          LINE 訂購
+        </button>
+      </div>
+
+      <!-- 手機 -->
+      <button id="menu-btn" aria-label="選單" class="lg:hidden flex flex-col gap-1.5 p-2">
+        <span class="block w-6 h-px" style="background:var(--color-ink)"></span>
+        <span class="block w-6 h-px" style="background:var(--color-ink)"></span>
+        <span class="block w-4 h-px" style="background:var(--color-ink)"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 手機選單 -->
+  <div id="mobile-nav" class="hidden lg:hidden px-6 py-6"
+    style="background:var(--color-bg); border-bottom:1px solid var(--color-border);">
+    <div class="flex flex-col gap-1">
+      {links.map(l => (
+        <a href={l.href} class="py-3 text-sm font-semibold tracking-widest uppercase"
+          style="color:var(--color-ink); border-bottom:1px solid var(--color-border);">
+          {l.label}
+        </a>
+      ))}
+      <button data-line-modal class="btn-gold mt-4 justify-center">LINE 訂購</button>
+    </div>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('menu-btn')!;
+  const nav = document.getElementById('mobile-nav')!;
+  btn.addEventListener('click', () => nav.classList.toggle('hidden'));
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.add('hidden')));
+</script>

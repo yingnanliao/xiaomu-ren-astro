@@ -1,0 +1,109 @@
+---
+const events = [
+  {
+    id:'e1', date:'2026-04-08', tag:'媒體報導',
+    title:'媒體採訪 — 小牧人的選擇',
+    description:'一場創業夢想的故事受到媒體關注，小牧人羊奶的堅持與理念登上報導版面。',
+    image:'https://lirp.cdn-website.com/ea810aac/dms3rep/multi/opt/IMG_5453-1920w.jpg',
+  },
+  {
+    id:'e2', date:'2025-10-29', tag:'門市活動',
+    title:'網紅來訪光復新村',
+    description:'知名網紅造訪霧峰光復新村門市，親身體驗鮮採羊奶，在社群引起廣大迴響。',
+    image:'https://lirp.cdn-website.com/ea810aac/dms3rep/multi/opt/LINE_ALBUM_%E5%95%86%E5%93%81%E7%85%A7_250325_1-1920w.jpg',
+  },
+  {
+    id:'e3', date:'2025-09-02', tag:'快閃活動',
+    title:'相約金典，不見不散',
+    description:'小牧人進駐台中金典酒店第六市場快閃攤位，與更多消費者近距離接觸。',
+    image:'https://lirp.cdn-website.com/ea810aac/dms3rep/multi/opt/S__5816379-1920w.jpg',
+  },
+];
+
+function fmt(d: string) {
+  const dt = new Date(d);
+  return `${dt.getFullYear()} . ${String(dt.getMonth()+1).padStart(2,'0')} . ${String(dt.getDate()).padStart(2,'0')}`;
+}
+---
+
+<section id="events" style="background:var(--color-bg); border-top:1px solid var(--color-border);">
+  <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12 py-16 sm:py-20">
+
+    <!-- 標題 -->
+    <div class="mb-10 sm:mb-14 reveal">
+      <span class="tag">Recent Events</span>
+      <h2 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-black" style="color:var(--color-ink);">近期活動</h2>
+    </div>
+
+    <!-- 手機：單欄堆疊；桌面：左大右小 -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 overflow-hidden"
+      style="border:1px solid var(--color-border);">
+
+      <!-- 大圖（第一則） -->
+      <div class="reveal-left relative overflow-hidden group"
+        style="border-bottom:1px solid var(--color-border); min-height:280px; @media(min-width:1024px){border-bottom:none; border-right:1px solid var(--color-border)}">
+        <!-- 手機 border-b，桌面 border-r -->
+        <div class="lg:absolute lg:inset-0 relative h-56 sm:h-72 lg:h-full">
+          <img src={events[0].image} alt={events[0].title}
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"/>
+        </div>
+        <div class="lg:absolute lg:inset-0 hidden lg:block"
+          style="background:linear-gradient(to top, rgba(26,28,24,.85) 0%, transparent 55%);"></div>
+
+        <!-- 桌面：文字疊在圖上 -->
+        <div class="hidden lg:block absolute bottom-0 left-0 right-0 p-8">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="px-2 py-0.5 text-xs font-black tracking-wider uppercase"
+              style="background:var(--color-gold); color:var(--color-ink);">{events[0].tag}</span>
+            <time class="text-xs" style="color:rgba(255,255,255,.55)">{fmt(events[0].date)}</time>
+          </div>
+          <h3 class="text-xl font-black leading-snug" style="color:white;">{events[0].title}</h3>
+          <p class="mt-2 text-sm leading-loose" style="color:rgba(255,255,255,.65)">{events[0].description}</p>
+        </div>
+
+        <!-- 手機：文字在圖下方 -->
+        <div class="lg:hidden p-5">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="px-2 py-0.5 text-xs font-black tracking-wider uppercase"
+              style="background:var(--color-gold); color:var(--color-ink);">{events[0].tag}</span>
+            <time class="text-xs" style="color:var(--color-ink-muted)">{fmt(events[0].date)}</time>
+          </div>
+          <h3 class="text-base font-black leading-snug mb-1.5" style="color:var(--color-ink);">{events[0].title}</h3>
+          <p class="text-sm leading-loose" style="color:var(--color-ink-muted)">{events[0].description}</p>
+        </div>
+      </div>
+
+      <!-- 右側兩則 -->
+      <div class="flex flex-col">
+        {events.slice(1).map((ev, i) => (
+          <div class={`reveal-right relative overflow-hidden group
+                       flex flex-col sm:flex-row gap-0 lg:gap-5
+                       ${i===0 ? 'border-b' : ''}`}
+            style={`border-color:var(--color-border);
+                    background:${i===1 ? 'var(--color-bg-2)':'var(--color-bg)'};
+                    transition-delay:${(i+1)*.1}s`}>
+
+            <!-- 縮圖（手機：全寬橫圖；桌面：小方圖） -->
+            <div class="sm:w-28 sm:flex-shrink-0 overflow-hidden h-40 sm:h-auto"
+              style="background:var(--color-sage-pale);">
+              <img src={ev.image} alt={ev.title}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"/>
+            </div>
+
+            <div class="flex-1 p-5">
+              <div class="flex items-center gap-2 mb-2 flex-wrap">
+                <span class="px-2 py-0.5 text-[10px] font-black tracking-wider uppercase"
+                  style="background:var(--color-sage-pale); color:var(--color-sage);">{ev.tag}</span>
+                <time class="text-xs" style="color:var(--color-ink-muted)">{fmt(ev.date)}</time>
+              </div>
+              <h3 class="text-sm sm:text-base font-black mb-1.5 leading-snug"
+                style="color:var(--color-ink);">{ev.title}</h3>
+              <p class="text-xs sm:text-sm leading-relaxed"
+                style="color:var(--color-ink-muted);">{ev.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

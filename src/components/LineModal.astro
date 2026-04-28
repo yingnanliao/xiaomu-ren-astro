@@ -1,0 +1,76 @@
+---
+---
+
+<div id="line-modal"
+  class="fixed inset-0 z-[200] hidden items-center justify-center p-4"
+  style="background:rgba(0,0,0,0.75); backdrop-filter:blur(6px);">
+
+  <div id="line-modal-box"
+    class="relative w-full max-w-xs sm:max-w-sm rounded-2xl overflow-hidden shadow-2xl"
+    style="background:var(--color-bg);">
+
+    <!-- 頂部綠色 -->
+    <div class="px-6 pt-7 pb-5 text-center" style="background:var(--color-bg-dark);">
+      <div class="w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-3"
+        style="background:#06C755;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+          <path d="M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+        </svg>
+      </div>
+      <h3 class="text-lg font-black" style="color:white;">加入 LINE 訂購</h3>
+      <p class="text-xs mt-1" style="color:rgba(255,255,255,.5);">掃描 QR Code 或點擊按鈕</p>
+    </div>
+
+    <!-- QR Code -->
+    <div class="px-6 py-6 text-center">
+      <div class="inline-block p-3 rounded-xl mb-4" style="background:var(--color-bg-2);">
+        <img
+          src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://lin.ee/8AKSmWP&color=1A1C18&bgcolor=EDE8DC&margin=8&qzone=2"
+          alt="LINE QR Code" width="180" height="180" class="rounded-lg"
+        />
+      </div>
+
+      <p class="text-xs mb-5" style="color:var(--color-ink-muted);">
+        LINE：<span class="font-bold" style="color:var(--color-ink);">@littleshepherd</span>
+      </p>
+
+      <a href="https://lin.ee/8AKSmWP" target="_blank" rel="noopener"
+        class="btn-dark w-full justify-center mb-2.5" style="display:flex;">
+        開啟 LINE 聊天
+      </a>
+
+      <button id="line-modal-close"
+        class="w-full py-3 text-sm font-medium rounded transition-colors"
+        style="color:var(--color-ink-muted);"
+        onmouseover="this.style.background='var(--color-bg-2)'"
+        onmouseout="this.style.background='transparent'">
+        關閉
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('line-modal')!;
+  const box   = document.getElementById('line-modal-box')!;
+  const close = document.getElementById('line-modal-close')!;
+
+  document.querySelectorAll('[data-line-modal]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  close.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => { if (!box.contains(e.target as Node)) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+  function closeModal() {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+</script>

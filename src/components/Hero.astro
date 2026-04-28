@@ -1,0 +1,82 @@
+---
+---
+
+<section class="pt-16 overflow-x-hidden" style="background:var(--color-bg);">
+
+  <!-- ① 主視覺 -->
+  <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12">
+    <div class="pt-14 sm:pt-20 pb-10 flex flex-col lg:grid lg:grid-cols-[1fr_auto] gap-10 lg:gap-16 items-end"
+      style="border-bottom:1px solid var(--color-border);">
+
+      <!-- 文字 -->
+      <div>
+        <div class="tag mb-4 sm:mb-6" style="opacity:0;animation:fadeUp .6s .1s ease both">
+          Since 2012 · 台中霧峰光復新村
+        </div>
+        <h1 class="text-[clamp(2.8rem,10vw,7rem)] font-black leading-none tracking-tight"
+          style="color:var(--color-ink); font-family:var(--font-serif);
+                 opacity:0; animation:fadeUp .8s .2s cubic-bezier(.22,1,.36,1) both">
+          小牧人<br/>
+          <em style="font-style:italic; color:var(--color-sage);">羊奶</em>
+        </h1>
+        <p class="mt-5 text-sm sm:text-base leading-loose max-w-sm"
+          style="color:var(--color-ink-muted); opacity:0; animation:fadeUp .7s .4s ease both">
+          台灣土地孕育，青山之間放牧。<br/>
+          無添加、純天然，是對每個家庭最真摯的承諾。
+        </p>
+        <div class="mt-6 sm:mt-8 flex flex-wrap gap-3"
+          style="opacity:0; animation:fadeUp .7s .55s ease both">
+          <a href="#menu" class="btn-dark">探索產品</a>
+          <a href="#about" class="btn-outline-dark">認識我們</a>
+        </div>
+      </div>
+
+      <!-- Logo 圓 -->
+      <div class="flex justify-center lg:justify-end pb-4 order-first lg:order-last"
+        style="opacity:0; animation:fadeIn .9s .3s ease both">
+        <div class="w-44 h-44 sm:w-52 sm:h-52 lg:w-64 lg:h-64 rounded-full overflow-hidden
+                    flex items-center justify-center"
+          style="background:var(--color-sage-pale); border:1px solid var(--color-border);">
+          <img src="/logo.png" alt="小牧人羊奶" class="w-11/12 h-11/12 object-contain"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ② 數字條 -->
+  <div style="background:var(--color-ink); opacity:0; animation:fadeIn .6s .7s ease both">
+    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12">
+      <div class="grid grid-cols-3 divide-x" style="border-color:rgba(255,255,255,.1)">
+        {[
+          { n:'10+',   label:'年牧養' },
+          { n:'100%',  label:'台灣在地' },
+          { n:'0',     label:'人工添加' },
+        ].map(item => (
+          <div class="py-5 sm:py-7 px-3 sm:px-6 text-center">
+            <div class="text-xl sm:text-2xl lg:text-3xl font-black"
+              style="color:var(--color-gold); font-family:var(--font-serif);">{item.n}</div>
+            <div class="text-[10px] sm:text-xs mt-1 font-medium tracking-wider"
+              style="color:rgba(255,255,255,.4)">{item.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ Marquee -->
+  <div class="marquee-wrap py-3" style="background:var(--color-gold);">
+    <div class="marquee-track">
+      {Array(2).fill(null).map(() => (
+        <span class="flex items-center">
+          {['鮮純羊奶','無防腐劑','每日新鮮','冷鏈宅配','羊奶優格','手工饅頭','台中霧峰','光復新村'].map(t => (
+            <span class="flex items-center gap-0 px-6 sm:px-8">
+              <span class="text-[10px] sm:text-xs font-black tracking-[.2em] uppercase"
+                style="color:var(--color-ink)">{t}</span>
+              <span class="ml-6 sm:ml-8 opacity-30" style="color:var(--color-ink)">✦</span>
+            </span>
+          ))}
+        </span>
+      ))}
+    </div>
+  </div>
+</section>

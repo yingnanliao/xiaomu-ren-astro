@@ -1,0 +1,66 @@
+---
+const faqs = [
+  { q:'喝羊奶有什麼好處？',
+    a:'「長輩說：喝羊奶，顧肺管。」根據本草綱目記載，羊奶具有甘溫、滋補、健胃利腸的特性。羊奶的脂肪球只有牛奶的 1/3，更容易被人體吸收，且乳糖含量低，腸胃敏感族群也能安心飲用。' },
+  { q:'羊奶是從哪裡來的？',
+    a:'小牧人的羊奶來自台中霧峰山區的自家牧場。我們從羊的飲食管理開始把關品質，讓每一頭羊在青山綠地中自然成長，喝山泉水、吃無農藥牧草，為每一瓶羊奶奠定最純粹的基礎。' },
+  { q:'羊奶什麼時候殺菌？',
+    a:'我們在當天凌晨一點完成殺菌，採用巴氏低溫殺菌法（62–65°C，30 分鐘），此方式能充分保留羊奶的天然營養素與風味，避免高溫殺菌破壞蛋白質與維生素。' },
+  { q:'羊奶有宅配服務嗎？',
+    a:'有！每逢週三、週五早上配送至台中市區。您也可以透過 7-ELEVEN 超商取貨服務，指定離您最近的門市付款取貨，全台灣都能收到新鮮羊奶。' },
+  { q:'我要怎麼訂購？',
+    a:'最便捷的方式是透過 LINE 與我們聯繫（點擊頁面上的「LINE 訂購」按鈕），或致電 0918-620-092。也歡迎親臨台中市霧峰區新生路 126 號光復新村門市，現場品嚐再訂購！' },
+];
+---
+
+<section id="faq" style="background:var(--color-bg-dark); border-top:1px solid rgba(255,255,255,.06);">
+  <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12 py-16 sm:py-20">
+
+    <div class="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-10 lg:gap-16 items-start">
+
+      <!-- 左：標題 -->
+      <div class="reveal-left">
+        <span class="tag" style="color:var(--color-sage-light);">Goat Milk School</span>
+        <h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-black leading-tight"
+          style="color:var(--color-bg);">
+          羊奶<br/>
+          <span style="color:var(--color-gold);">小學堂</span>
+        </h2>
+        <p class="mt-4 text-sm leading-loose" style="color:rgba(255,255,255,.4);">
+          關於羊奶的大小事，<br/>我們一一為您解答。
+        </p>
+      </div>
+
+      <!-- 右：FAQ -->
+      <div class="reveal-right" style="border-top:1px solid rgba(255,255,255,.1);">
+        {faqs.map((item, i) => (
+          <details class="faq-item" style="border-color:rgba(255,255,255,.1);">
+            <summary>
+              <span style="color:rgba(255,255,255,.85); font-family:var(--font-serif); font-size:clamp(.9rem,2.5vw,1rem);">
+                <span class="text-xs font-black mr-3" style="color:var(--color-gold);">
+                  {String(i+1).padStart(2,'0')}
+                </span>
+                {item.q}
+              </span>
+              <span class="faq-icon flex-shrink-0"
+                style="color:rgba(255,255,255,.4); border-color:rgba(255,255,255,.2);">+</span>
+            </summary>
+            <div class="faq-body" style="color:rgba(255,255,255,.45);">{item.a}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('details.faq-item').forEach(d => {
+    d.addEventListener('toggle', () => {
+      if ((d as HTMLDetailsElement).open) {
+        document.querySelectorAll('details.faq-item').forEach(o => {
+          if (o !== d) (o as HTMLDetailsElement).open = false;
+        });
+      }
+    });
+  });
+</script>
